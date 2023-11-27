@@ -1,8 +1,17 @@
 [package]
 name = "releases-test"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 repository = "https://github.com/SaraVieira/axoreleases-test"
+authors = ["Sara Vieira"]
+description = "test for releases"
+
+
+[package.metadata.wix]
+upgrade-guid = "E78161E0-3EED-47AD-A2A9-6D01B4C6FFAA"
+path-guid = "96526038-F939-444C-9414-A149438E0603"
+license = false
+eula = false
 
 [dependencies]
 
@@ -13,23 +22,21 @@ lto = "thin"
 
 # Config for 'cargo dist'
 [workspace.metadata.dist]
-hosting = "axodotdev"
+# Where to host releases
+hosting = ["github", "axodotdev"]
 # The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
-cargo-dist-version = "0.0.7"
+cargo-dist-version = "0.5.0-prerelease.12"
 # The preferred Rust toolchain to use in CI (rustup toolchain syntax)
 rust-toolchain-version = "1.67.1"
 # Target platforms to build apps for (Rust target-triple syntax)
-targets = [
-    "x86_64-unknown-linux-gnu",
-    "x86_64-apple-darwin",
-    "x86_64-pc-windows-msvc",
-    "aarch64-apple-darwin",
-]
-# CI backends to support (see 'cargo dist generate-ci')
+targets = ["x86_64-unknown-linux-gnu", "aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-musl", "x86_64-pc-windows-msvc"]
+# CI backends to support
 ci = ["github"]
 # The installers to generate for each app
-installers = ["shell", "powershell", "npm"]
+installers = ["shell", "powershell", "npm", "homebrew", "msi"]
 # The archive format to use for windows builds (defaults .zip)
 windows-archive = ".tar.gz"
 # The archive format to use for non-windows builds (defaults .tar.xz)
 unix-archive = ".tar.gz"
+# Publish jobs to run in CI
+pr-run-mode = "plan"
